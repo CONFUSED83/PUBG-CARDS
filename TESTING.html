@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PUBG CARDS - Testing</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#0d0f1a;color:#e8eaf6;min-height:100vh}
+.c{max-width:800px;margin:0 auto;padding:20px;padding-bottom:80px}
+.hdr{text-align:center;padding:30px 20px;background:#1a1d2e;border-radius:20px;border:1px solid rgba(139,144,176,0.12);margin-bottom:20px}
+.hdr h1{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:2rem;background:linear-gradient(135deg,#f0c040,#00d4aa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hdr p{color:#8b90b0;font-size:0.8125rem;margin-top:6px}
+.pb{height:8px;background:#1a1d2e;border-radius:4px;overflow:hidden;margin:16px 0}
+.pf{height:100%;background:linear-gradient(90deg,#00d4aa,#f0c040);border-radius:4px;transition:width 0.3s}
+.sts{display:flex;justify-content:center;gap:24px;margin-top:10px}
+.st{text-align:center}.sv{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.5rem}
+.sl{font-size:0.5625rem;text-transform:uppercase;letter-spacing:0.1em;color:#8b90b0}
+.ic{background:#1a1d2e;border:1px solid rgba(139,144,176,0.12);border-radius:14px;padding:14px;margin-bottom:20px}
+.ic h3{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:0.8125rem;margin-bottom:8px;color:#f0c040}
+.ic p{font-size:0.8125rem;color:#8b90b0;line-height:1.7}
+.ic code{background:#0d0f1a;padding:2px 6px;border-radius:4px;font-size:0.75rem;color:#00d4aa}
+.s{background:#1a1d2e;border:1px solid rgba(139,144,176,0.12);border-radius:16px;margin-bottom:12px;overflow:hidden}
+.sh{padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer}
+.sn{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.75rem;flex-shrink:0}
+.sn.p{background:rgba(0,212,170,0.2);color:#00d4aa}
+.sn.f{background:rgba(255,77,106,0.2);color:#ff4d6a}
+.sn.u{background:#222535;color:#5a5e78}
+.si{flex:1}.stt{font-weight:600;font-size:0.875rem}
+.su{font-size:0.625rem;text-transform:uppercase;letter-spacing:0.08em;margin-top:2px}
+.se{color:#5a5e78;transition:transform 0.2s;font-size:12px}
+.s.opn .se{transform:rotate(180deg)}
+.sb{display:none;padding:0 16px 16px}
+.s.opn .sb{display:block}
+.ins{background:#0d0f1a;border:1px solid rgba(139,144,176,0.12);border-radius:10px;padding:12px;margin-bottom:12px;font-size:0.8125rem;line-height:1.6}
+.ins strong{color:#00d4aa}.ins em{color:#f0c040;font-style:normal;font-weight:600}
+.ta{display:flex;gap:8px;margin-bottom:12px}
+.tb{flex:1;padding:10px;border-radius:10px;border:1px solid rgba(139,144,176,0.12);background:transparent;color:#e8eaf6;font-family:'Rajdhani',sans-serif;font-weight:600;font-size:0.75rem;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all 0.2s}
+.tb:hover{border-color:#5a5e78}
+.tb.ps.sel{background:rgba(0,212,170,0.15);border-color:#00d4aa;color:#00d4aa}
+.tb.fl.sel{background:rgba(255,77,106,0.15);border-color:#ff4d6a;color:#ff4d6a}
+.ca{width:100%;background:#0d0f1a;border:1px solid rgba(139,144,176,0.12);border-radius:10px;padding:10px 12px;color:#e8eaf6;font-family:'Inter',sans-serif;font-size:0.8125rem;resize:vertical;min-height:40px;outline:none}
+.ca:focus{border-color:rgba(0,212,170,0.4)}.ca::placeholder{color:#5a5e78}
+.ab{position:fixed;bottom:0;left:0;right:0;background:rgba(13,15,26,0.95);backdrop-filter:blur(16px);border-top:1px solid rgba(139,144,176,0.12);padding:12px 20px;display:flex;gap:10px;justify-content:center;z-index:100}
+.ab button{padding:12px 24px;border-radius:12px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:0.8125rem;letter-spacing:0.06em;text-transform:uppercase;border:none;cursor:pointer}
+.bd{background:#00d4aa;color:#0d0f1a}.bd:hover{filter:brightness(1.1)}
+.br{background:rgba(255,77,106,0.15);color:#ff4d6a;border:1px solid rgba(255,77,106,0.3)!important}
+.br:hover{background:rgba(255,77,106,0.25)}
+.ub{display:inline-block;padding:2px 8px;border-radius:6px;font-size:0.625rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;margin-right:4px}
+.ua{background:rgba(240,192,64,0.15);color:#f0c040}
+.u1{background:rgba(0,212,170,0.15);color:#00d4aa}
+.u2{background:rgba(88,101,242,0.15);color:#5865F2}
+.u3{background:rgba(255,77,106,0.15);color:#ff4d6a}
+</style>
+</head>
+<body>
+<div class="c" id="app"></div>
+<div class="ab">
+<button class="br" onclick="resetAll()">Reset All</button>
+<button class="bd" onclick="dl()">Download Report</button>
+</div>
+<script>
+var U={ad:{n:'CatLover78',l:'Admin',b:'ua'},a:{n:'Alice',l:'Alice',b:'u1'},b:{n:'Bob',l:'Bob',b:'u2'},c:{n:'Charlie',l:'Charlie',b:'u3'}};
+var T=[
+{id:'s1',t:'Clear all browser data',u:'all',i:'Press <em>Ctrl+Shift+Delete</em> on all devices. Clear cached files. Restart server.'},
+{id:'s2',t:'Admin login',u:'ad',i:'Login: <code>CatLover78</code> / <code>Ilovecutecats.75</code>. Expect: <strong>Admin Console</strong>.'},
+{id:'s3',t:'Admin checks Overview',u:'ad',i:'Overview tab. Expect: <strong>Users: 0, Cards: 63</strong>.'},
+{id:'s4',t:'Admin sets announcement',u:'ad',i:'<strong>Message</strong> tab. Heading: <code>Welcome!</code> Message: <code>Trading is open!</code> Click <strong>Show Every Time</strong> â†’ SAVE.'},
+{id:'s5',t:'Admin logout',u:'ad',i:'Logout.'},
+{id:'s6',t:'Alice creates account',u:'a',i:'Username: <code>Alice</code> Password: <code>alice123</code> WhatsApp: <code>1111111111</code>. Expect: <strong>card setup</strong>.'},
+{id:'s7',t:'Alice adds 8 cards',u:'a',i:'<strong>Gold:</strong> Evacuation Master, Melody Strongest Team<br><strong>Silver:</strong> Music Hall, Racing Hall, Dynamic Slide Hall<br><strong>Basic:</strong> A-Rank Vault, B-Rank Vault, Energy Shield<br>Save Collection.'},
+{id:'s8',t:'Alice home loads',u:'a',i:'Expect: <strong>admin popup</strong> (dismiss). Stats: <strong>8 owned</strong>.'},
+{id:'s9',t:'Alice collection',u:'a',i:'8 cards in grid. Click owned â†’ qty modal. Click unowned â†’ Missing popup.'},
+{id:'s10',t:'Alice Trade Hub',u:'a',i:'Find a Card â†’ select missing card. Offer a Card â†’ shows extras.'},
+{id:'s11',t:'Alice sends feedback',u:'a',i:'Profile â†’ Send Feedback â†’ <code>Great app!</code> â†’ Submit.'},
+{id:'s12',t:'Alice logout',u:'a',i:'Logout.'},
+{id:'s13',t:'Bob creates account',u:'b',i:'Username: <code>Bob</code> Password: <code>bob456</code> Discord: <code>Bob#1234</code>.'},
+{id:'s14',t:'Bob adds 8 cards',u:'b',i:'<strong>Gold:</strong> Evacuation Master (same as Alice)<br><strong>Silver:</strong> Music Hall (same), Rail Parachute Challenge, Racing Challenge, S-Rank Vault<br><strong>Basic:</strong> A-Rank (same), Anniversary Lucky Spin, Spatial Zone 1<br>Save.'},
+{id:'s15',t:'Bob finds card',u:'b',i:'Trade Hub â†’ Find â†’ <strong>Melody Strongest Team</strong>. Expect: <strong>Alice as match</strong>.'},
+{id:'s16',t:'Bob sends trade',u:'b',i:'Click Alice â†’ SEND TRADE REQUEST. Post-send screen shows.'},
+{id:'s17',t:'Bob chats',u:'b',i:'Chat in App â†’ send <code>Hi! Want to trade?</code>'},
+{id:'s18',t:'Bob logout',u:'b',i:'Logout.'},
+{id:'s19',t:'Alice re-login',u:'a',i:'Login Alice. Home shows <strong>pending trade from Bob</strong>.'},
+{id:'s20',t:'Alice accepts',u:'a',i:'ACCEPT â†’ goes to chat. Chat shows "Trade accepted".'},
+{id:'s21',t:'Alice confirms',u:'a',i:'Trades â†’ CONFIRM TRADE COMPLETED.'},
+{id:'s22',t:'Alice logout',u:'a',i:'Logout.'},
+{id:'s23',t:'Bob re-login',u:'b',i:'Login Bob. Home popup asks about trade.'},
+{id:'s24',t:'Bob confirms',u:'b',i:'Click Yes, Trade Successful. Check collection â†’ new card present.'},
+{id:'s25',t:'Bob logout',u:'b',i:'Logout.'},
+{id:'s26',t:'Charlie creates',u:'c',i:'Username: <code>Charlie</code> Password: <code>charlie789</code> WhatsApp: <code>3333333333</code>.'},
+{id:'s27',t:'Charlie adds cards',u:'c',i:'Melody Strongest Team (Gold), Dynamic Slide Hall (Silver), S-Rank Vault (Silver), A-Rank Vault (Basic), Floating Thruster (Basic), Spatial Zone 2 (Basic). Save.'},
+{id:'s28',t:'Charlie report',u:'c',i:'Profile â†’ Report Issue â†’ <code>Test Report</code> / <code>Testing</code> â†’ Submit.'},
+{id:'s29',t:'Charlie feedback',u:'c',i:'Profile â†’ Send Feedback â†’ <code>Love it</code> / <code>Smooth trading</code> â†’ Submit.'},
+{id:'s30',t:'Charlie trades Alice',u:'c',i:'Trade Hub â†’ Find card Alice has â†’ send trade â†’ chat.'},
+{id:'s31',t:'Charlie logout',u:'c',i:'Logout.'},
+{id:'s32',t:'Alice rejects Charlie',u:'a',i:'Login Alice. Home â†’ pending from Charlie â†’ REJECT.'},
+{id:'s33',t:'Alice logout2',u:'a',i:'Logout.'},
+{id:'s34',t:'Charlie checks reject',u:'c',i:'Login Charlie. Trades â†’ outgoing â†’ REJECTED.'},
+{id:'s35',t:'Charlie guest mode',u:'c',i:'Logout â†’ Guest â†’ browse â†’ click card â†’ login popup.'},
+{id:'s36',t:'Admin checks trades',u:'ad',i:'Login admin â†’ Trades tab â†’ completed and rejected visible.'},
+{id:'s37',t:'Admin checks reports',u:'ad',i:'Reports tab â†’ report and feedback listed. Mark resolved.'},
+{id:'s38',t:'Admin checks activity',u:'ad',i:'Live tab â†’ activity feed with registrations, logins, trades.'},
+{id:'s39',t:'Admin checks users',u:'ad',i:'Users tab â†’ 4 users. CHAT next to Alice opens chat as Admin.'}
+];
+function ls(){try{return JSON.parse(localStorage.getItem('cth_ts')||'{}')}catch(e){return{}}}
+function ss(s){localStorage.setItem('cth_ts',JSON.stringify(s))}
+function render(){
+var s=ls();var p=0,f=0;
+for(var i=0;i<T.length;i++){if(s[T[i].id]&&s[T[i].id].r==='p')p++;if(s[T[i].id]&&s[T[i].id].r==='f')f++}
+var h='<div class="hdr"><h1>PUBG CARDS - Testing</h1><p>Follow steps. Expand each for details. Pass/Fail/Comment each.</p><div class="pb"><div class="pf" style="width:'+(T.length>0?Math.round(p/T.length*100):0)+'%"></div></div><div class="sts"><div class="st"><div class="sv" style="color:#00d4aa">'+p+'</div><div class="sl">Passed</div></div><div class="st"><div class="sv">'+T.length+'</div><div class="sl">Total</div></div><div class="st"><div class="sv" style="color:#ff4d6a">'+f+'</div><div class="sl">Failed</div></div></div></div>';
+h+='<div class="ic"><h3>Test Accounts</h3><p><span class="ub ua">Admin</span> CatLover78 / Ilovecutecats.75<br><span class="ub u1">Alice</span> Alice / alice123 (WhatsApp)<br><span class="ub u2">Bob</span> Bob / bob456 (Discord)<br><span class="ub u3">Charlie</span> Charlie / charlie789 (WhatsApp)</p></div>';
+for(var j=0;j<T.length;j++){
+var t=T[j];var st=s[t.id]||{};var nc=st.r==='p'?'p':st.r==='f'?'f':'u';
+var oi=st.o?'opn':'';
+h+='<div class="s '+oi+'"><div class="sh" onclick="tg(\''+t.id+'\')"><div class="sn '+nc+'">'+(j+1)+'</div><div class="si"><div class="stt">'+t.t+'</div><div class="su"><span class="ub '+(U[t.u]?U[t.u].b:'')+'">'+(U[t.u]?U[t.u].l:t.u)+'</span></div></div><div class="se">&#9660;</div></div><div class="sb"><div class="ins">'+t.i+'</div><div class="ta"><button class="tb ps '+(st.r==='p'?'sel':'')+'" onclick="sr(\''+t.id+'\',\'p\')">Pass</button><button class="tb fl '+(st.r==='f'?'sel':'')+'" onclick="sr(\''+t.id+'\',\'f\')">Fail</button></div><textarea class="ca" placeholder="Comment..." onchange="sc(\''+t.id+'\',this.value)">'+(st.c||'')+'</textarea></div></div>'}
+document.getElementById('app').innerHTML=h}
+function tg(id){var s=ls();if(!s[id])s[id]={};s[id].o=!s[id].o;ss(s);render()}
+function sr(id,res){var s=ls();if(!s[id])s[id]={};s[id].r=res;ss(s);render()}
+function sc(id,c){var s=ls();if(!s[id])s[id]={};s[id].c=c;ss(s)}
+function resetAll(){if(confirm('Reset all test results?')){localStorage.removeItem('cth_ts');render()}}
+function dl(){
+var s=ls();var rpt={app:'PUBG CARDS',date:new Date().toISOString(),summary:{passed:0,failed:0,total:T.length},tests:[]};
+for(var i=0;i<T.length;i++){var t=T[i];var st=s[t.id]||{};
+if(st.r==='p')rpt.summary.passed++;if(st.r==='f')rpt.summary.failed++;
+rpt.tests.push({id:t.id,title:t.t,user:U[t.u]?U[t.u].l:t.u,result:st.r||'untested',comment:st.c||''})}
+var b=new Blob([JSON.stringify(rpt,null,2)],{type:'application/json'});var u=URL.createObjectURL(b);
+var a=document.createElement('a');a.href=u;a.download='pubg-cards-test-'+new Date().toISOString().split('T')[0]+'.json';a.click();URL.revokeObjectURL(u)}
+render();
+</script>
+</body>
+</html>
