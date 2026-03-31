@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PUBG Cards - Chat</title>
+    <link rel="stylesheet" href="shared-style.css">
+    <style>
+        .chat-wrapper { display: flex; flex-direction: column; height: 100vh; height: 100dvh; position: fixed; inset: 0; }
+        .chat-top-bar { background: rgba(13,15,26,0.95); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 12px 16px; display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+        .back-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px; }
+        .back-btn:hover { color: var(--text); }
+        .chat-user-name { font-weight: 600; font-size: 0.9375rem; }
+        .chat-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--teal)); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; color: var(--bg); flex-shrink: 0; }
+
+        .chat-messages { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 8px; -webkit-overflow-scrolling: touch; }
+        .message { max-width: 82%; padding: 10px 14px; border-radius: 16px; font-size: 0.875rem; line-height: 1.4; word-wrap: break-word; }
+        .message-sent { align-self: flex-end; background: rgba(0,212,170,0.15); color: var(--text); border-bottom-right-radius: 4px; }
+        .message-received { align-self: flex-start; background: var(--surface); border-bottom-left-radius: 4px; }
+        .message-time { font-size: 0.5625rem; color: var(--text-dim); margin-top: 4px; }
+
+        .trade-card-msg { max-width: 92%; padding: 14px; border-radius: 14px; border: 1px solid rgba(240,192,64,0.2); background: var(--surface); margin: 4px auto; }
+        .trade-card-msg-sent { align-self: flex-end; }
+        .trade-card-msg-received { align-self: flex-start; }
+        .trade-swap-mini { display: flex; align-items: center; gap: 8px; margin: 8px 0; justify-content: center; }
+        .trade-mini-card { width: 80px; border-radius: 8px; overflow: hidden; flex-shrink: 0; }
+        .trade-mini-card img { width: 100%; height: auto; display: block; object-fit: cover; }
+        .trade-mini-arrow { color: var(--teal); flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; background: rgba(0,212,170,0.12); display: flex; align-items: center; justify-content: center; }
+        .trade-label { font-size: 0.5625rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 4px; }
+        .trade-label-give { color: var(--red); }
+        .trade-label-get { color: var(--teal); }
+        .trade-actions-mini { display: flex; gap: 10px; margin-top: 12px; }
+        .trade-actions-mini button { flex: 1; padding: 10px; border-radius: 10px; font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; border: none; cursor: pointer; }
+        .btn-accept-trade { background: var(--teal); color: var(--bg); }
+        .btn-reject-trade { background: rgba(255,77,106,0.15); color: var(--red); border: 1px solid rgba(255,77,106,0.3) !important; }
+        .trade-accepted-msg { border-color: rgba(0,212,170,0.3) !important; }
+        .trade-rejected-msg { border-color: rgba(255,77,106,0.2) !important; opacity: 0.6; }
+
+        .chat-input-area { padding: 12px 16px; background: rgba(13,15,26,0.95); border-top: 1px solid var(--border); display: flex; gap: 10px; align-items: center; flex-shrink: 0; }
+        .chat-input { flex: 1; background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 12px 18px; color: var(--text); font-size: 0.9375rem; outline: none; font-family: 'Inter', sans-serif; }
+        .chat-input:focus { border-color: rgba(0,212,170,0.3); }
+        .chat-input::placeholder { color: var(--text-dim); }
+        .send-btn { width: 44px; height: 44px; border-radius: 50%; background: var(--teal); color: var(--bg); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.2s; }
+        .send-btn:hover { filter: brightness(1.1); transform: scale(1.05); }
+        .send-btn:active { transform: scale(0.95); }
+        .system-message { align-self: center; background: rgba(255,255,255,0.04); color: var(--text-dim); font-size: 0.75rem; padding: 6px 16px; border-radius: 20px; max-width: 80%; text-align: center; }
+        .system-message-trade { background: rgba(0,212,170,0.08); color: var(--teal); }
+        .system-message-reject { background: rgba(255,77,106,0.08); color: var(--red); }
+        .chat-more-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px 8px; font-size: 18px; }
+        .chat-more-btn:hover { color: var(--text); }
+    </style>
+</head>
+<body>
+    <div class="chat-wrapper">
+        <div class="chat-top-bar">
+            <button class="back-btn" id="backBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            </button>
+            <div class="chat-avatar" id="chatAvatar"></div>
+            <div style="flex:1;">
+                <div class="chat-user-name" id="chatUserName"></div>
+            </div>
+            <button class="chat-more-btn" id="moreBtn">⋮</button>
+            <div id="moreMenu" style="display:none;position:absolute;top:50px;right:12px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:6px;min-width:160px;z-index:200;box-shadow:0 8px 24px rgba(0,0,0,0.4);">
+                <button id="deleteChatBtn" style="display:flex;align-items:center;gap:8px;width:100%;padding:10px 12px;border:none;background:none;color:var(--red);font-size:0.8125rem;cursor:pointer;border-radius:8px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                    Delete Chat
+                </button>
+            </div>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div style="text-align:center;padding:40px;"><div class="spinner spinner-lg"></div></div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" class="chat-input" id="chatInput" placeholder="Type a message...">
+            <button class="send-btn" id="sendBtn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="app-data.js?v=CLEAN164721"></script>
+    <script src="shared-components.js?v=38"></script>
+    <script>
+    (async function() {
+        try {
+            while (typeof initApp !== 'function') await new Promise(r => setTimeout(r, 10));
+            await initApp();
+        } catch(e) { console.error('Init failed:', e); return; }
+
+        const user = requireAuth();
+        if (!user) return;
+
+        const params = getNavParams();
+        const conversationId = params[0];
+        const otherUser = params[1];
+
+        if (!conversationId || !otherUser) { navigateTo('chat'); return; }
+
+        const displayUser = otherUser === 'CatLover78' ? 'Admin' : otherUser;
+        document.getElementById('chatUserName').textContent = displayUser;
+        document.getElementById('chatAvatar').textContent = displayUser.charAt(0).toUpperCase();
+        document.getElementById('backBtn').addEventListener('click', () => navigateTo('chat'));
+
+        // More menu toggle
+        document.getElementById('moreBtn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            document.getElementById('moreMenu').style.display = document.getElementById('moreMenu').style.display === 'none' ? 'block' : 'none';
+        });
+        document.addEventListener('click', () => {
+            document.getElementById('moreMenu').style.display = 'none';
+        });
+
+        function showDeleteModal() {
+            const overlay = document.createElement('div');
+            overlay.className = 'modal-overlay active';
+            overlay.innerHTML = `
+            <div class="modal-content" style="text-align:center;">
+                <h3 style="font-family:Rajdhani,sans-serif;font-weight:700;font-size:1.25rem;margin-bottom:8px;">Delete Chat?</h3>
+                <p style="color:var(--text-dim);font-size:0.8125rem;margin-bottom:20px;">This chat will be removed from your list only. The other user will still see it.</p>
+                <div style="display:flex;gap:8px;">
+                    <button class="btn btn-outline btn-sm" style="flex:1;" id="deleteCancel">Cancel</button>
+                    <button class="btn btn-danger btn-sm" style="flex:1;" id="deleteConfirm">Delete</button>
+                </div>
+            </div>`;
+            document.body.appendChild(overlay);
+            overlay.querySelector('#deleteCancel').onclick = () => overlay.remove();
+            overlay.querySelector('#deleteConfirm').onclick = async () => {
+                // Check for pending trades and notify the other user
+                if (sb) {
+                    const { data: pendingTrades } = await sb.from('trades').select('*')
+                        .or(`and(requester.eq.${user.username},receiver.eq.${otherUser}),and(requester.eq.${otherUser},receiver.eq.${user.username})`)
+                        .eq('status', 'pending');
+                    
+                    if (pendingTrades && pendingTrades.length > 0) {
+                        // Cancel pending trades
+                        for (const trade of pendingTrades) {
+                            await sb.from('trades').update({ status: 'rejected', reject_reason: 'Chat deleted' }).eq('trade_id', trade.trade_id);
+                        }
+                        // Send system message to other user
+                        await sendMessage(conversationId, user.username, otherUser, user.username + ' cancelled the trade and deleted this chat.', 'system');
+                    }
+                }
+                // Store deleted conv locally
+                const deleted = JSON.parse(localStorage.getItem('cth_deleted_chats_' + user.username) || '[]');
+                if (!deleted.includes(conversationId)) deleted.push(conversationId);
+                localStorage.setItem('cth_deleted_chats_' + user.username, JSON.stringify(deleted));
+                overlay.remove();
+                showToast('Chat deleted from your list', 'info');
+                navigateTo('chat');
+            };
+            overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
+        }
+
+        // Delete chat
+        document.getElementById('deleteChatBtn').addEventListener('click', () => {
+            showDeleteModal();
+        });
+
+        await markMessagesRead(conversationId, user.username);
+
+        async function loadMessages() {
+            const messages = await getMessages(conversationId);
+            const container = document.getElementById('chatMessages');
+            
+            if (messages.length === 0) {
+                container.innerHTML = '<div class="system-message">Start of conversation</div>';
+            } else {
+                let html = '';
+                for (const msg of messages) {
+                    const isMine = msg.sender === user.username;
+                    const time = new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    
+                    if (msg.message_type === 'system') {
+                        let msgClass = 'system-message';
+                        if (msg.content.includes('accepted') || msg.content.includes('completed')) msgClass += ' system-message-trade';
+                        if (msg.content.includes('declined') || msg.content.includes('cancelled') || msg.content.includes('rejected')) msgClass += ' system-message-reject';
+                        html += '<div class="' + msgClass + '">' + escapeHtml(msg.content) + '</div>';
+                    } else if (msg.message_type === 'trade_request') {
+                        html += await renderTradeMessage(msg, isMine, time);
+                    } else {
+                        html += '<div class="message ' + (isMine ? 'message-sent' : 'message-received') + '">' + escapeHtml(msg.content) + '<div class="message-time">' + time + '</div></div>';
+                    }
+                }
+                container.innerHTML = html;
+
+                // Attach trade action handlers
+                container.querySelectorAll('[data-accept-trade]').forEach(btn => {
+                    btn.addEventListener('click', async () => {
+                        const tradeId = btn.dataset.acceptTrade;
+                        await updateTradeStatus(tradeId, 'accepted');
+                        await sendMessage(conversationId, user.username, otherUser, 'Trade accepted! Let\'s complete it.', 'system');
+                        showToast('Trade accepted!', 'success');
+                        await loadMessages();
+                    });
+                });
+
+                container.querySelectorAll('[data-reject-trade]').forEach(btn => {
+                    btn.addEventListener('click', async () => {
+                        const tradeId = btn.dataset.rejectTrade;
+                        await updateTradeStatus(tradeId, 'rejected', 'Declined in chat');
+                        await sendMessage(conversationId, user.username, otherUser, 'Trade declined.', 'system');
+                        showToast('Trade declined.', 'info');
+                        await loadMessages();
+                    });
+                });
+            }
+            container.scrollTop = container.scrollHeight;
+        }
+
+        async function renderTradeMessage(msg, isMine, time) {
+            let giveCard = null;
+            let getCard = null;
+            let tradeStatus = 'pending';
+
+            if (msg.trade_id) {
+                const trade = await getTradeById(msg.trade_id);
+                if (trade) {
+                    const reqCardId = trade.requester === user.username ? trade.requester_card_id : trade.receiver_card_id;
+                    const recCardId = trade.requester === user.username ? trade.receiver_card_id : trade.requester_card_id;
+                    giveCard = getCardById(reqCardId);
+                    getCard = getCardById(recCardId);
+                    tradeStatus = trade.status;
+                }
+            }
+
+            const giveImg = giveCard ? getCardImageUrl(giveCard) : null;
+            const getImg = getCard ? getCardImageUrl(getCard) : null;
+            const isPending = tradeStatus === 'pending';
+            const isAccepted = tradeStatus === 'accepted';
+            const isRejected = tradeStatus === 'rejected';
+
+            let statusLabel = '';
+            if (isAccepted) statusLabel = '<div style="color:var(--teal);font-size:0.6875rem;font-weight:600;margin-top:6px;">Accepted</div>';
+            if (isRejected) statusLabel = '<div style="color:var(--red);font-size:0.6875rem;font-weight:600;margin-top:6px;">Declined</div>';
+
+            return `
+            <div style="font-size:0.5625rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold);font-weight:600;text-align:center;margin-bottom:4px;">Trade Offer</div>
+            <div class="trade-card-msg ${isMine ? 'trade-card-msg-sent' : 'trade-card-msg-received'} ${isAccepted ? 'trade-accepted-msg' : ''} ${isRejected ? 'trade-rejected-msg' : ''}">
+                ${giveCard && getCard ? `
+                <div class="trade-swap-mini">
+                    <div style="text-align:center;">
+                        <div class="trade-label trade-label-give">${isMine ? 'YOU GIVE' : 'THEY GIVE'}</div>
+                        <div class="trade-mini-card card-${giveCard.type.toLowerCase()}">
+                            ${giveImg ? '<img src="' + giveImg + '" onerror="this.style.display=\'none\'">' : ''}
+                        </div>
+                    </div>
+                    <div class="trade-mini-arrow">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/></svg>
+                    </div>
+                    <div style="text-align:center;">
+                        <div class="trade-label trade-label-get">${isMine ? 'YOU GET' : 'THEY GET'}</div>
+                        <div class="trade-mini-card card-${getCard.type.toLowerCase()}">
+                            ${getImg ? '<img src="' + getImg + '" onerror="this.style.display=\'none\'">' : ''}
+                        </div>
+                    </div>
+                </div>` : '<div style="font-size:0.8125rem;color:var(--text-muted);margin:8px 0;">' + escapeHtml(msg.content) + '</div>'}
+                ${statusLabel}
+                ${!isMine && isPending && msg.trade_id ? `
+                <div class="trade-actions-mini">
+                    <button class="btn-accept-trade" data-accept-trade="${msg.trade_id}">Accept</button>
+                    <button class="btn-reject-trade" data-reject-trade="${msg.trade_id}">Decline</button>
+                </div>` : ''}
+                <div class="message-time">${time}</div>
+            </div>`;
+        }
+
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        await loadMessages();
+
+        async function sendMsg() {
+            const input = document.getElementById('chatInput');
+            const content = input.value.trim();
+            if (!content) return;
+            input.value = '';
+            await sendMessage(conversationId, user.username, otherUser, content);
+            await loadMessages();
+        }
+
+        document.getElementById('sendBtn').addEventListener('click', sendMsg);
+        document.getElementById('chatInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMsg();
+        });
+
+        setInterval(async () => {
+            await markMessagesRead(conversationId, user.username);
+            await loadMessages();
+        }, 5000);
+    })();
+    </script>
+</body>
+</html>
