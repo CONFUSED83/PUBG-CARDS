@@ -1,0 +1,254 @@
+/* ============ ADMIN USERS ============ */
+
+.users-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.user-list-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    background: var(--bg);
+    transition: all 0.15s;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+}
+
+.user-list-item:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.user-list-item.banned {
+    background: rgba(255, 77, 106, 0.04);
+    border: 1px solid rgba(255, 77, 106, 0.15);
+}
+
+.user-list-item.deleted {
+    opacity: 0.25;
+    filter: grayscale(100%);
+    border: 1px solid rgba(255, 77, 106, 0.1);
+    pointer-events: none;
+}
+
+.user-list-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--teal));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--bg);
+    flex-shrink: 0;
+    position: relative;
+}
+
+.user-list-avatar .ban-icon {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    width: 18px;
+    height: 18px;
+    background: var(--red);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    color: white;
+    border: 2px solid var(--bg);
+}
+
+.user-list-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.user-list-name {
+    font-weight: 600;
+    font-size: 0.9375rem;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.user-list-name .user-tag {
+    font-size: 0.5rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.user-list-name .user-tag.banned {
+    background: rgba(255, 77, 106, 0.15);
+    color: var(--red);
+    border: 1px solid rgba(255, 77, 106, 0.25);
+}
+
+.user-list-name .user-tag.deleted {
+    background: rgba(255, 77, 106, 0.08);
+    color: rgba(255, 77, 106, 0.6);
+    border: 1px solid rgba(255, 77, 106, 0.15);
+}
+
+.user-list-name .user-tag.admin {
+    background: rgba(240, 192, 64, 0.15);
+    color: var(--gold);
+    border: 1px solid rgba(240, 192, 64, 0.25);
+}
+
+.user-list-meta {
+    font-size: 0.6875rem;
+    color: var(--text-dim);
+}
+
+.user-list-stats {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.user-stat-mini {
+    text-align: center;
+    min-width: 50px;
+}
+
+.user-stat-mini .val {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    line-height: 1;
+}
+
+.user-stat-mini .lbl {
+    font-size: 0.5rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 2px;
+}
+
+/* User detail */
+
+.detail-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.detail-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--teal));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--bg);
+    flex-shrink: 0;
+    position: relative;
+}
+
+.detail-avatar .ban-icon {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 22px;
+    height: 22px;
+    background: var(--red);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: white;
+    border: 2px solid var(--surface);
+}
+
+.detail-info h2 {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin: 0 0 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.detail-info .meta {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+}
+
+.detail-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.detail-stat {
+    padding: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.detail-stat .val {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 1.75rem;
+    line-height: 1;
+}
+
+.detail-stat .lbl {
+    font-size: 0.625rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 4px;
+}
+
+.detail-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.detail-actions .btn {
+    flex: 1;
+    min-width: 120px;
+    text-align: center;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .user-list-stats { display: none; }
+    .user-list-item { padding: 12px; }
+    .user-list-avatar { width: 40px; height: 40px; font-size: 16px; }
+    .detail-stats { grid-template-columns: 1fr 1fr; }
+    .detail-header { flex-direction: column; text-align: center; }
+    .detail-actions { flex-direction: column; }
+    .detail-actions .btn { min-width: auto; }
+}

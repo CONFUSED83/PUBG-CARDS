@@ -1,0 +1,72 @@
+.page-wrap {
+    padding: 80px 16px 100px;
+    max-width: 480px; margin: 0 auto;
+    position: relative; z-index: 1;
+}
+.top-bar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(13,15,26,0.9); backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+}
+.top-bar-inner {
+    max-width: 480px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 16px;
+}
+.top-bar-brand {
+    font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.125rem;
+    background: linear-gradient(135deg, var(--gold), var(--teal));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.back-btn {
+    background: none; border: none; color: var(--text-muted);
+    cursor: pointer; padding: 6px;
+}
+.back-btn:hover { color: var(--text); }
+
+.page-title {
+    font-family: 'Rajdhani', sans-serif; font-weight: 700;
+    font-size: 1.75rem; margin: 0 0 4px;
+}
+.page-sub { color: var(--text-dim); font-size: 0.8125rem; margin-bottom: 16px; }
+
+.trade-card {
+    padding: 16px; margin-bottom: 12px;
+}
+
+.trade-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 14px;
+}
+.trade-user {
+    display: flex; align-items: center; gap: 10px;
+}
+.trade-avatar {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--teal));
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 13px; color: var(--bg);
+}
+.trade-name { font-weight: 600; font-size: 0.875rem; }
+.trade-time { font-size: 0.6875rem; color: var(--text-dim); }
+
+.trade-actions {
+    display: flex; gap: 8px; margin-top: 14px;
+}
+
+.contact-reveal {
+    margin-top: 14px; padding-top: 14px;
+    border-top: 1px solid var(--border);
+}
+
+.empty-state {
+    text-align: center; padding: 50px 20px;
+    color: var(--text-dim);
+}
+.empty-state svg {
+    margin-bottom: 12px; opacity: 0.3;
+}
+.app-loading {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh; color: var(--text-dim);
+}

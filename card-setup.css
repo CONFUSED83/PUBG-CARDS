@@ -1,0 +1,124 @@
+.setup-wrapper {
+    padding: 56px 12px 110px;
+    max-width: 480px; margin: 0 auto;
+    position: relative; z-index: 1;
+}
+
+.instruction-screen {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    min-height: calc(100vh - 170px);
+    text-align: center; padding: 20px;
+}
+.instruction-icon {
+    width: 72px; height: 72px; border-radius: 20px;
+    background: linear-gradient(135deg, rgba(0,212,170,0.15), rgba(240,192,64,0.15));
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px; color: var(--teal);
+}
+.instruction-title {
+    font-family: 'Rajdhani', sans-serif; font-weight: 700;
+    font-size: 1.5rem; margin-bottom: 12px;
+}
+.instruction-text {
+    color: var(--text-muted); font-size: 0.875rem;
+    line-height: 1.5; max-width: 320px;
+}
+.instruction-steps {
+    text-align: left; width: 100%; max-width: 320px;
+    margin: 18px 0 24px;
+}
+.instruction-step {
+    display: flex; gap: 10px; margin-bottom: 12px; align-items: flex-start;
+}
+.instruction-step-num {
+    width: 22px; height: 22px; border-radius: 6px;
+    background: rgba(0,212,170,0.12); color: var(--teal);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 0.6875rem; flex-shrink: 0;
+}
+.instruction-step-text {
+    font-size: 0.8125rem; color: var(--text-muted); line-height: 1.4;
+}
+
+.setup-header { margin-bottom: 12px; text-align: center; }
+.setup-top-row {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    margin-bottom: 6px;
+}
+.setup-category-name {
+    font-family: 'Rajdhani', sans-serif; font-weight: 700;
+    font-size: 1.375rem;
+}
+.setup-type-badge {
+    font-family: 'Rajdhani', sans-serif; font-weight: 600;
+    font-size: 0.6875rem; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 3px 10px; border-radius: 8px;
+}
+.type-badge-golden { background: rgba(240,192,64,0.15); color: var(--gold); }
+.type-badge-silver { background: rgba(192,200,220,0.12); color: #c0c8dc; }
+.type-badge-basic { background: rgba(200,180,140,0.12); color: #c8b48c; }
+
+.category-pills {
+    display: flex; gap: 8px; justify-content: center;
+    align-items: center; margin-top: 10px;
+}
+.cat-pill {
+    padding: 5px 12px; border-radius: 8px;
+    font-family: 'Rajdhani', sans-serif; font-weight: 600;
+    font-size: 0.625rem; letter-spacing: 0.06em; text-transform: uppercase;
+    transition: all 0.2s;
+}
+.cat-pill-pending { background: var(--surface); color: var(--text-dim); border: 1px solid var(--border); }
+.cat-pill-active-golden { background: rgba(240,192,64,0.2); color: var(--gold); border: 1px solid rgba(240,192,64,0.3); }
+.cat-pill-active-silver { background: rgba(192,200,220,0.15); color: #c0c8dc; border: 1px solid rgba(192,200,220,0.25); }
+.cat-pill-active-basic { background: rgba(200,180,140,0.15); color: #c8b48c; border: 1px solid rgba(200,180,140,0.25); }
+.cat-pill-done { background: rgba(0,212,170,0.12); color: var(--teal); border: 1px solid rgba(0,212,170,0.2); }
+
+.cards-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 10px; margin-top: 14px;
+}
+@media (min-width: 380px) {
+    .cards-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.card-setup-item { position: relative; }
+.card-setup-item .card-placeholder { cursor: pointer; }
+.card-setup-item .card-name { display: none; }
+.card-setup-item .card-type-badge { display: none; }
+
+.check-mark {
+    position: absolute; top: 6px; right: 6px;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--teal); color: var(--bg);
+    display: none; align-items: center; justify-content: center;
+    z-index: 2; box-shadow: 0 2px 8px rgba(0,212,170,0.4);
+}
+.card-setup-item.claimed .check-mark { display: flex; }
+
+.nav-footer {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: rgba(26, 29, 46, 0.95); backdrop-filter: blur(16px);
+    border-top: 1px solid var(--border); padding: 14px 16px; z-index: 100;
+}
+.nav-footer-inner {
+    max-width: 480px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.nav-info-count {
+    font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.125rem;
+}
+.nav-info-label {
+    font-size: 0.625rem; color: var(--text-dim);
+    text-transform: uppercase; letter-spacing: 0.1em;
+}
+.nav-buttons { display: flex; gap: 8px; }
+.empty-type {
+    text-align: center; padding: 30px 20px;
+    color: var(--text-dim); font-size: 0.8125rem;
+}
+.app-loading {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh; color: var(--text-dim);
+}

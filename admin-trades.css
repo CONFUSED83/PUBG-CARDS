@@ -1,0 +1,164 @@
+/* ============ ADMIN TRADES ============ */
+
+.trade-status-bar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.trade-status-chip {
+    flex: 1;
+    padding: 14px;
+    background: var(--bg);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.trade-status-chip .num {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.trade-status-chip .lbl {
+    font-size: 0.5625rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 2px;
+}
+
+/* Trade card */
+.trade-card {
+    background: var(--bg);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 8px;
+    border: 1px solid var(--border);
+    position: relative;
+}
+
+.trade-card-body {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+
+.trade-offer-side {
+    flex: 1;
+    text-align: center;
+}
+
+.trade-offer-name {
+    font-weight: 700;
+    font-size: 0.9375rem;
+    margin-bottom: 2px;
+    color: var(--text);
+}
+
+.trade-offer-role {
+    font-size: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+}
+
+.trade-offer-card {
+    width: 90px;
+    height: 120px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 6px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.02);
+}
+
+.trade-offer-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.trade-offer-card-fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.5625rem;
+    font-weight: 600;
+    padding: 4px;
+    text-align: center;
+}
+
+.trade-offer-card-name {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    word-break: break-word;
+    color: var(--text-muted);
+}
+
+.trade-exchange-icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 40px;
+}
+
+.trade-exchange-icon svg {
+    width: 28px;
+    height: 28px;
+    color: var(--teal);
+    opacity: 0.6;
+}
+
+.trade-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+}
+
+.trade-card-footer-left {
+    display: flex;
+    gap: 6px;
+}
+
+.trade-card-footer-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.trade-time {
+    font-size: 0.625rem;
+    color: var(--text-dim);
+}
+
+@media (max-width: 768px) {
+    .trade-status-bar {
+        flex-wrap: wrap;
+    }
+    .trade-status-chip {
+        min-width: calc(50% - 6px);
+    }
+    .trade-card-body {
+        gap: 10px;
+    }
+    .trade-offer-card {
+        width: 72px;
+        height: 96px;
+    }
+    .trade-exchange-icon {
+        padding-top: 30px;
+    }
+    .trade-exchange-icon svg {
+        width: 22px;
+        height: 22px;
+    }
+}
